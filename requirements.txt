@@ -1,0 +1,11 @@
+certifi==2025.1.31
+charset-normalizer==3.4.1
+idna==3.10
+loguru==0.7.3
+python-dotenv==1.1.0
+requests==2.32.3
+ruff==0.11.2
+scheduler==0.8.8
+typeguard==4.4.2
+typing_extensions==4.12.2
+urllib3==2.3.0
