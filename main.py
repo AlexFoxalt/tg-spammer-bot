@@ -52,7 +52,7 @@ schedule.weekly(Monday(dt.time(hour=9, minute=50)), main)
 schedule.weekly(
     [
         Tuesday(dt.time(hour=8, minute=50)),
-        Wednesday(dt.time(hour=8, minute=50)),
+        Wednesday(dt.time(hour=11, minute=50)),
         Thursday(dt.time(hour=8, minute=50)),
         Friday(dt.time(hour=8, minute=50)),
     ],
