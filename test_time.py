@@ -1,6 +1,4 @@
-from logger import get_logger
-
-logger = get_logger()
+from logger import logger
 
 logger.info("utcnow: %s", dt.datetime.utcnow().isoformat() + "Z")
 logger.info("local (naive) now: %s", dt.datetime.now().isoformat())
