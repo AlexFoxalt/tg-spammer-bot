@@ -15,7 +15,7 @@ url = (
     f"https://api.telegram.org/{os.environ["BOT_ID"]}:{os.environ["TOKEN"]}/sendMessage"
 )
 text = """
-@laurifity @valerinktn Напоминание👀\n
+@yudinekat @laurifity @cqdezzz Напоминание👀\n
 Нужно отправить скриншоты операционных показателей в соседний чат. 
 """
 body = {"chat_id": os.environ["CHAT_ID"], "text": text}
