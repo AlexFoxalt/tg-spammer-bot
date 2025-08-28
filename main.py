@@ -30,13 +30,13 @@ def main():
 
 kyiv_tz = dt.timezone(dt.timedelta(hours=3))
 schedule = Scheduler(tzinfo=kyiv_tz)
-schedule.weekly(Monday(dt.time(hour=9, minute=50, tzinfo=kyiv_tz)), main)
+schedule.weekly(Monday(dt.time(hour=12, minute=50, tzinfo=kyiv_tz)), main)
 schedule.weekly(
     [
-        Tuesday(dt.time(hour=8, minute=50, tzinfo=kyiv_tz)),
-        Wednesday(dt.time(hour=8, minute=50, tzinfo=kyiv_tz)),
-        Thursday(dt.time(hour=8, minute=50, tzinfo=kyiv_tz)),
-        Friday(dt.time(hour=8, minute=50, tzinfo=kyiv_tz)),
+        Tuesday(dt.time(hour=11, minute=50, tzinfo=kyiv_tz)),
+        Wednesday(dt.time(hour=11, minute=50, tzinfo=kyiv_tz)),
+        Thursday(dt.time(hour=11, minute=50, tzinfo=kyiv_tz)),
+        Friday(dt.time(hour=11, minute=50, tzinfo=kyiv_tz)),
     ],
     main,
 )
