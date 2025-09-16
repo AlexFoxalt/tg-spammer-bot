@@ -30,9 +30,9 @@ def main():
 
 kyiv_tz = dt.timezone(dt.timedelta(hours=3))
 schedule = Scheduler(tzinfo=kyiv_tz)
-schedule.weekly(Monday(dt.time(hour=12, minute=50, tzinfo=kyiv_tz)), main)
 schedule.weekly(
     [
+        Monday(dt.time(hour=12, minute=50, tzinfo=kyiv_tz)),
         Tuesday(dt.time(hour=11, minute=50, tzinfo=kyiv_tz)),
         Wednesday(dt.time(hour=11, minute=50, tzinfo=kyiv_tz)),
         Thursday(dt.time(hour=11, minute=50, tzinfo=kyiv_tz)),
@@ -41,11 +41,9 @@ schedule.weekly(
     main,
 )
 
-init_log = False
-while True:
-    if not init_log:
-        logger.info(f"Scheduler started at {dt.datetime.now()}")
-        init_log = True
-
-    schedule.exec_jobs()
-    time.sleep(1)
+if __name__ == "__main__":
+    logger.info(f"Scheduler started at {dt.datetime.now()}")
+    while True:
+        schedule.exec_jobs()
+        time.sleep(1)
+        
