@@ -12,7 +12,7 @@ from logger import logger
 load_dotenv()
 
 url = (
-    f"https://api.telegram.org/{os.environ["BOT_ID"]}:{os.environ["TOKEN"]}/sendMessage"
+    f"https://api.telegram.org/{os.environ['BOT_ID']}:{os.environ['TOKEN']}/sendMessage"
 )
 text = """
 @yudinekat @laurifity @cqdezzz Напоминание👀\n
@@ -46,4 +46,3 @@ if __name__ == "__main__":
     while True:
         schedule.exec_jobs()
         time.sleep(1)
-        
