@@ -72,7 +72,7 @@ def main():
     body = {"chat_id": os.environ["UNIVER_CHAT_ID"], "text": text}
     logger.info(f"Generated message: {text}")
     response = requests.post(url=url, json=body).json()
-    
+
     if not response.get("ok", ""):
         raise Exception("Request invalid status")
 
@@ -83,7 +83,7 @@ schedule.hourly(dt.time(minute=0, tzinfo=kyiv_tz), main)
 
 
 if __name__ == "__main__":
-    logger.info(f"Scheduler started at {dt.datetime.now()}")
+    logger.info(f"Scheduler started at {dt.datetime.now(kyiv_tz).isoformat()}")
 
     while True:
         schedule.exec_jobs()
