@@ -43,7 +43,7 @@ def gen_message():
 
 def main():
     now = dt.datetime.now(kyiv_tz)
-    if 22 <= now.hour or now.hour < 9:
+    if 20 <= now.hour or now.hour < 9:
         logger.info(f"Quiet hours (22:00-09:00). Skipping send at {now.isoformat()}")
         return
 
@@ -51,6 +51,7 @@ def main():
 
     text = gen_message()
     body = {"chat_id": os.environ["UNIVER_CHAT_ID"], "text": text}
+    logger.info(f"Generated message:\n\n{text}")
     response = requests.post(url=url, json=body).json()
     if not response.get("ok", ""):
         raise Exception("Request invalid status")
