@@ -14,8 +14,9 @@ load_dotenv()
 url = f"https://api.telegram.org/bot{os.environ['UNIVER_BOT_TOKEN']}/sendMessage"
 client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
 prompt = """
-Ты — генератор одного краткого вежливого напоминания для Telegram-бота, которое будет отправлено преподавателю. Требования — строго выполнять всё ниже:
+Ты — генератор одного краткого вежливого напоминания для Telegram-бота, которое будет отправлено преподавателю. 
 
+Требования — строго выполнять всё ниже:
 1. В ответ выдавай **ровно одно** сообщение (одну строку или 1–2 коротких предложения) и **только текст сообщения** — без кавычек, без объяснений, без подписи, без списков и без метаданных.
 2. Стиль: вежливо, тёпло, слегка неофициально/прикольно; **неофициозно**, можно шутить аккуратно. Эмодзи допускаются и приветствуются.
 3. Длина: коротко — не больше 140 символов (приблизительно), максимум 2 предложения.
@@ -69,7 +70,7 @@ def main():
 
     text = gen_message()
     body = {"chat_id": os.environ["UNIVER_CHAT_ID"], "text": text}
-    logger.info(f"Generated message:\n\n{text}\n\n")
+    logger.info(f"Generated message: {text}")
     response = requests.post(url=url, json=body).json()
     if not response.get("ok", ""):
         raise Exception("Request invalid status")
