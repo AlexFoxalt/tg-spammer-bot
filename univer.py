@@ -5,18 +5,39 @@ import time
 import requests
 from dotenv import load_dotenv
 from scheduler import Scheduler
+from google import genai
 
 from logger import logger
 
 load_dotenv()
 
 url = f"https://api.telegram.org/bot{os.environ['UNIVER_BOT_TOKEN']}/sendMessage"
-text = """
-@jukovchief 👋\n
-Новый час, а задания всё нет❓\n
-Все грустят 😿
+client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
+prompt = """
+Сгенерируй короткое и вежливое напоминание преподавателю о том, что нужно прислать задание.
+
+Возвращай только текст сообщения, без лишних слов или тех.информации.
+
+Правила:
+* Тон дружелюбный, можно слегка шутливый.
+* Допускаются эмодзи (но не слишком много).
+* Сообщение не должно быть длинным.
+* Можно обыгрывать то, что прошёл ещё один час.
+* Никакой политики, религии, грубостей или спорных тем.
+* Стиль — лёгкий, неформальный, но уважительный.
+
+Примеры сообщений:
+1. "Прошел ещё один час ⏰ Задание всё ещё ждём 👀"
+2. "Новый час настал, а заданий пока нет... 😅"
+3. "Час пролетел — задания так и не появилось 🕒"
+
+Сгенерируй 1 новое сообщение в этом стиле.
 """
-body = {"chat_id": os.environ["UNIVER_CHAT_ID"], "text": text}
+
+
+def gen_message():
+    response = client.models.generate_content(model="gemini-2.5-flash", contents=prompt)
+    return f"@jukovchief 👋\n{response.text}"
 
 
 def main():
@@ -24,8 +45,11 @@ def main():
     if 22 <= now.hour or now.hour < 9:
         logger.info(f"Quiet hours (22:00-09:00). Skipping send at {now.isoformat()}")
         return
-        
+
     logger.info(f"Job started at {now.isoformat()}")
+
+    text = gen_message()
+    body = {"chat_id": os.environ["UNIVER_CHAT_ID"], "text": text}
     response = requests.post(url=url, json=body).json()
     if not response.get("ok", ""):
         raise Exception("Request invalid status")
