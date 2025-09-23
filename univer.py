@@ -10,7 +10,7 @@ from logger import logger
 
 load_dotenv()
 
-url = f"https://api.telegram.org/bot{os.environ["UNIVER_BOT_TOKEN"]}/sendMessage"
+url = f"https://api.telegram.org/bot{os.environ['UNIVER_BOT_TOKEN']}/sendMessage"
 text = """
 @jukovchief 👋\n
 Новый час, а задания всё нет❓\n
@@ -20,7 +20,12 @@ body = {"chat_id": os.environ["UNIVER_CHAT_ID"], "text": text}
 
 
 def main():
-    logger.info(f"Job started at {dt.datetime.now()}")
+    now = dt.datetime.now(kyiv_tz)
+    if 22 <= now.hour or now.hour < 9:
+        logger.info(f"Quiet hours (22:00-09:00). Skipping send at {now.isoformat()}")
+        return
+        
+    logger.info(f"Job started at {now.isoformat()}")
     response = requests.post(url=url, json=body).json()
     if not response.get("ok", ""):
         raise Exception("Request invalid status")
