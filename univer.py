@@ -44,8 +44,8 @@ def gen_message():
 
 def main():
     now = dt.datetime.now(kyiv_tz)
-    if 20 <= now.hour or now.hour < 9:
-        logger.info(f"Quiet hours (22:00-09:00). Skipping send at {now.isoformat()}")
+    if 20 < now.hour or now.hour < 9:
+        logger.info(f"Quiet hours (21:00-09:00). Skipping send at {now.isoformat()}")
         return
 
     logger.info(f"Job started at {now.isoformat()}")
