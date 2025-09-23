@@ -37,7 +37,7 @@ prompt = """
 
 def gen_message():
     response = client.models.generate_content(
-        model="gemini-2.5-flash-lite", contents=prompt, config={"temperature": 1}
+        model="gemini-2.5-flash-lite", contents=prompt, config={"temperature": 0.75}
     )
     return f"@jukovchief 👋\n{response.text}"
 
