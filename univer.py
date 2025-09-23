@@ -72,6 +72,7 @@ def main():
     body = {"chat_id": os.environ["UNIVER_CHAT_ID"], "text": text}
     logger.info(f"Generated message: {text}")
     response = requests.post(url=url, json=body).json()
+    
     if not response.get("ok", ""):
         raise Exception("Request invalid status")
 
