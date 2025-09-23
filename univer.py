@@ -15,8 +15,7 @@ url = f"https://api.telegram.org/bot{os.environ['UNIVER_BOT_TOKEN']}/sendMessage
 client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
 prompt = """
 Сгенерируй короткое и вежливое напоминание преподавателю о том, что нужно прислать задание.
-
-Возвращай только текст сообщения, без лишних слов или тех.информации.
+Возвращай только текст сообщения "as is", без лишних слов или тех.информации.
 
 Правила:
 * Тон дружелюбный, можно слегка шутливый.
@@ -36,7 +35,9 @@ prompt = """
 
 
 def gen_message():
-    response = client.models.generate_content(model="gemini-2.5-flash", contents=prompt)
+    response = client.models.generate_content(
+        model="gemini-2.5-flash-lite", contents=prompt, config={"temperature": 1}
+    )
     return f"@jukovchief 👋\n{response.text}"
 
 
