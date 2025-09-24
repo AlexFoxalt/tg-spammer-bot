@@ -51,13 +51,15 @@ def gen_message():
     ).replace("<k>", str(5))
 
     response = client.models.generate_content(
-        model="gemini-2.5-flash-lite", contents=upd_prompt, config={"temperature": 0.75}
+        model="gemini-2.5-flash-lite", contents=upd_prompt, config={"temperature": 1}
     )
-
+    text = response.text
+    
     with open("last_messages.txt", "a") as f:
-        f.write(f"{response.text}\n")
-
-    return f"@jukovchief 👋\n{response.text}"
+        f.write(f"{text}\n")
+    
+    logger.info(f"Generated message: {text}")
+    return f"@jukovchief 👋\n{text}"
 
 
 def main():
@@ -70,7 +72,6 @@ def main():
 
     text = gen_message()
     body = {"chat_id": os.environ["UNIVER_CHAT_ID"], "text": text}
-    logger.info(f"Generated message: {text}")
     response = requests.post(url=url, json=body).json()
 
     if not response.get("ok", ""):
